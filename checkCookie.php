@@ -8,11 +8,11 @@
 
 include_once("connection.php");
 
-session_destroy();
-//if(!isset($_SESSION)) {
+//session_destroy();
+if(!isset($_SESSION)) {
     session_start();
 
-//}
+}
 $dbh = getConnection();
 
 if(!is_null($dbh))

@@ -795,7 +795,7 @@ include_once("./checkCookie.php");
                             $(".favBrandSaved:last").after($('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 blockBrand" id="brand'+brand+'">')
                                                    .append($('<div class="boxFavBrand">')
                                                    .append($('<img src="../private/marchand/logo/'+item.logo+'" class="imgBrandFav">'))
-                                                   .append($('<span style="white-space:nowrap;">item.nom</span>')))
+                                                   .append($('<span style="white-space:nowrap;">'+item.nom+'</span>')))
                                                    .append($('<img class="img-delete" id="imgCheckedCat2" src="img/del.png" onclick="removeFavBrand('+brand+')" style="display: inline;">'))
                                                    );
 
