@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="95px" height="95px" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Cat11-Loisirs</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Cat11-Loisirs" stroke="#15153D">
+            <g id="Group-3" transform="translate(47.000000, 47.000000) rotate(-360.000000) translate(-47.000000, -47.000000) translate(23.000000, 20.000000)">
+                <g id="Stylo" transform="translate(0.251944, 0.023743)">
+                    <path d="M23.7747226,39.5119722 L6.09472261,39.5119722 L1.00442538,26.5181777 C0.626336498,25.5324045 0.763773713,24.0064522 1.31103944,23.1104581 L14.4355096,1.62281941 C14.9829368,0.726561 15.8668679,0.720628201 16.4116413,1.61254194 L29.1219439,22.4220973" id="Polygon-1" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M15.4253468,1.65741435 L15.4253468,20.2262559" id="Line" stroke-linecap="square"></path>
+                    <path d="M15.4253468,30.8333995 L15.4253468,39.2417176" id="Line" stroke-linecap="square"></path>
+                    <ellipse id="Oval-113" cx="15.4253468" cy="25.4136867" rx="4.16232419" ry="4.41977159"></ellipse>
+                    <path d="M26.2680558,45.2976852 L26.7032554,46.7501554 C26.6749046,47.7814545 26.056972,48.6174875 25.0562448,48.6174875 L5.7944488,48.6174875 C4.79177941,48.6174875 4.17474594,47.7858847 4.42031622,46.7428478 L6.0947225,39.511971 L24.2280553,39.511971" id="Rectangle-156"></path>
+                    <path d="M5.53982684,44.1977159 L25.3108667,44.1977159" id="Line" stroke-linecap="square"></path>
+                    <path d="M11.7833131,39.2254729 L11.7833131,34.8057013" id="Line" stroke-linecap="round"></path>
+                    <path d="M8.66156998,39.2254729 L8.66156998,34.8057013" id="Line" stroke-linecap="round"></path>
+                    <path d="M22.1891236,39.2254729 L22.1891236,34.8057013" id="Line" stroke-linecap="round"></path>
+                    <path d="M19.0673805,39.2254729 L19.0673805,34.8057013" id="Line" stroke-linecap="round"></path>
+                </g>
+                <g id="Pinceau" transform="translate(23.684656, 8.863287)">
+                    <path d="M3.55735041,37.5680585 L20.7631355,37.5680585 L21.3729278,42.2086001 C21.5172843,43.3071584 20.7458152,44.1977159 19.6423393,44.1977159 L4.67814659,44.1977159 C3.57801247,44.1977159 2.80366781,43.3036108 2.94755814,42.2086001 L3.55735041,37.5680585 Z" id="Rectangle-156-Copy"></path>
+                    <path d="M3.305112,37.5680585 C-1.69686054,25.6298713 -3.60601683,20.7336926 19.180747,0.552471449 C19.1807475,0.552471449 13.0672261,9.14380263 19.180747,16.534109 C25.294268,23.9244153 24.6792536,31.2871881 20.9949892,37.5680585 C20.9949892,37.5680595 4.516556,37.5680592 3.305112,37.5680585 Z" id="Path-582" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M9.02830783,37.0155871 L9.02830783,32.5958155" id="Line" stroke-linecap="round"></path>
+                    <path d="M12.150051,37.0155871 L12.150051,32.5958155" id="Line" stroke-linecap="round"></path>
+                    <path d="M5.90656469,37.0155871 L5.90656469,32.5958155" id="Line" stroke-linecap="round"></path>
+                    <path d="M18.3935373,37.0155871 L18.3935373,32.5958155" id="Line" stroke-linecap="round"></path>
+                    <path d="M15.2717941,37.0155871 L15.2717941,32.5958155" id="Line" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

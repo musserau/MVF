@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="270px" height="813px" viewBox="0 0 270 813" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Menu</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Site-WEB" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="18_Desktop_Page-vente_non-connecté" transform="translate(0.000000, -211.000000)">
+            <g id="Menu" transform="translate(0.000000, 211.000000)">
+                <rect id="Fond-ventes" fill="#FFFFFF" x="0" y="1" width="269" height="812"></rect>
+                <path d="M-136.5,406.5 L676,407" id="Line" stroke="#E6E6EE" stroke-linecap="square" transform="translate(269.500000, 406.500000) rotate(-270.000000) translate(-269.500000, -406.500000) "></path>
+                <path d="M35,698 L243,698" id="Line-Copy-2" stroke="#EFEFF2" stroke-linecap="square"></path>
+                <g id="Catégories" transform="translate(14.000000, 197.000000)">
+                    <text id="Beauté-&amp;-Bien-être-" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="50">Beauté &amp; Bien-être	</tspan>
+                    </text>
+                    <text id="Bricolage-&amp;-Jardin" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="81">Bricolage &amp; Jardin</tspan>
+                    </text>
+                    <text id="Chaussures" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="112">Chaussures</tspan>
+                        <tspan x="41" y="130">	</tspan>
+                    </text>
+                    <text id="Cuisine-&amp;-Arts-de-la-table" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="143">Cuisine &amp; Arts de la table</tspan>
+                    </text>
+                    <text id="Écologie-&amp;-Produits-bio" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="174">Écologie &amp; Produits bio</tspan>
+                    </text>
+                    <text id="Enfants-&amp;-Puériculture" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="205">Enfants &amp; Puériculture</tspan>
+                    </text>
+                    <text id="Gastronomie-&amp;-Vin" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="236">Gastronomie &amp; Vin</tspan>
+                    </text>
+                    <text id="High-tech-&amp;-Jeux-Vidéos" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="267">High-tech &amp; Jeux </tspan>
+                        <tspan x="41" y="285">Vidéos</tspan>
+                    </text>
+                    <text id="Intérieur-&amp;-Décoration" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="298">Intérieur &amp; Décoration</tspan>
+                    </text>
+                    <text id="Lingerie-&amp;-Underwear" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="329">Lingerie &amp; Underwear</tspan>
+                    </text>
+                    <text id="Loisirs-&amp;-Papeterie" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="360">Loisirs &amp; Papeterie</tspan>
+                    </text>
+                    <text id="Maroquinerie-&amp;-Bagagerie" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="391">Maroquinerie &amp; Bagagerie</tspan>
+                    </text>
+                    <text id="Mode,-Luxe-&amp;-Accessoires" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="422">Mode, Luxe &amp; Accessoires</tspan>
+                    </text>
+                    <text id="Montres,-Bijoux-&amp;-Lunettes" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="453">Montres, Bijoux &amp; Lunettes</tspan>
+                    </text>
+                    <text id="Sports-&amp;-Lifestyle" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="484">Sports &amp; Lifestyle</tspan>
+                    </text>
+                    <text font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="20" font-weight="normal" fill="#F17068">
+                        <tspan x="21" y="19">Catégories</tspan>
+                    </text>
+                    <g id="Déroulé" transform="translate(0.000000, 7.000000)" stroke="#FF837C" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13,4 L8.35924832,7.40978622 C7.91560538,7.73575229 7.91316028,8.26245117 8.35924832,8.59021378 L13,12" id="Path-444" transform="translate(10.500000, 8.000000) rotate(-90.000000) translate(-10.500000, -8.000000) "></path>
+                    </g>
+                </g>
+                <path d="M35,191 L243,191" id="Line-Copy-3" stroke="#EFEFF2" stroke-linecap="square"></path>
+                <g id="Ventes" transform="translate(14.000000, 62.000000)">
+                    <text id="Début-aujourd’hui" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="81">Début aujourd’hui</tspan>
+                    </text>
+                    <text id="Chaussures" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#404559">
+                        <tspan x="41" y="112">Début demain	</tspan>
+                    </text>
+                    <rect id="Rectangle" fill="#EFEFF2" x="21" y="32" width="208" height="30" rx="1"></rect>
+                    <text id="En-cours" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" fill="#15153D">
+                        <tspan x="41" y="50">En cours</tspan>
+                    </text>
+                    <text font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="20" font-weight="normal" fill="#F17068">
+                        <tspan x="21" y="19">Ventes</tspan>
+                    </text>
+                    <g id="Déroulé" transform="translate(0.000000, 7.000000)" stroke="#FF837C" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13,4 L8.35924832,7.40978622 C7.91560538,7.73575229 7.91316028,8.26245117 8.35924832,8.59021378 L13,12" id="Path-444" transform="translate(10.500000, 8.000000) rotate(-90.000000) translate(-10.500000, -8.000000) "></path>
+                    </g>
+                </g>
+                <path d="M35,56 L243,56" id="Line-Copy-2" stroke="#EFEFF2" stroke-linecap="square"></path>
+                <text id="Se-connecter" font-family=".SFNSDisplay-Regular, .SF NS Display" font-size="20" font-weight="normal" fill="#F17068">
+                    <tspan x="35" y="39">Se connecter</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

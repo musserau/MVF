@@ -1,0 +1,14 @@
+- Intégration flux produits partenaires 
+-> sujet qui en découle, la remontée des prix et réductions côté BO sur les ventes
+
+
+
+- Covers sous-catégorie et marques : à chaque sous-catégories (onglet "catégories" dans le BO) 
+va être ajoutée une cover sur le principe des réseaux sociaux pour placer les différentes marques dans l'univers qui leur correspond (chaussures de sport, chasse, poussettes, etc.). Pour les principales marques comme Apple, Nike, Adidas, Samsung, etc. on souhaite que cette cover puisse être dédiée, s'agissant de marque beaucoup consultées
+**dans onglet categorie ajoutet colone cover par sous categorie
+**dans onglet categorie ajoutet colone cover 
+
+
+- Editos : onglet "News" du BO. Il est actuellement possible d'uploader des articles. Ce que l'on souhaite est de pouvoir créer des rubriques (dans lesquels seront les articles). Et ces rubriques, de pouvoir les classer comme on le veut.
+- Chiffre du jour : même principe que l'onglet news en plus simple.
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="95px" height="95px" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Cat5-Ecologie</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Cat5-Ecologie" stroke="#15153D">
+            <g id="Group-3" transform="translate(22.000000, 16.000000)">
+                <g id="Group" transform="translate(30.530135, 41.664563) rotate(44.000000) translate(-30.530135, -41.664563) translate(22.530135, 18.664563)" stroke-width="2">
+                    <path d="M7.69200552,0.847757111 L7.69200552,45.3953238" id="Line"></path>
+                    <path d="M0.380038926,12.6736262 L7.69200552,20.7738771" id="Line-Copy-2"></path>
+                    <path d="M15.0039721,12.6736262 L7.69200552,20.7738771" id="Line-Copy-2"></path>
+                    <path d="M4.03602222,5.4019336 L7.69200552,10.0369789" id="Line-Copy-2"></path>
+                    <path d="M11.3479888,5.4019336 L7.61132532,10.139265" id="Line-Copy-2"></path>
+                </g>
+                <g id="Group" transform="translate(0.765971, 0.426937)" stroke-width="2">
+                    <path d="M26.3777785,24.4001018 C26.5902529,24.1652686 26.8077298,23.9325763 27.0301755,23.7022271 C34.6664186,15.7946658 52.6812558,16.8501719 52.6812558,16.8501719 C52.6812558,16.8501719 54.3648276,34.8171983 46.7285845,42.7247595 C39.0923414,50.6323208 28.4923041,52.7843268 23.0527387,47.5313995 C21.1532482,45.6970829 20.1342033,43.2023694 19.9374875,40.3954412 C23.5722259,37.0975908 26.0821306,31.2111956 26.3777785,24.4001018 Z" id="Combined-Shape" stroke-linejoin="round"></path>
+                    <path d="M13.2035341,43.2115663 C20.4956447,43.2115663 26.4070683,34.1832103 26.4070683,23.0461687 C26.4070683,11.9091271 13.2035341,0 13.2035341,0 C13.2035341,0 0,11.9091271 0,23.0461687 C0,34.1832103 5.91142359,43.2115663 13.2035341,43.2115663 Z" id="Oval-38" stroke-linejoin="round"></path>
+                    <path d="M13.2035341,12.0032129 L13.2035341,57.1352932" id="Line"></path>
+                    <path d="M6.15242681,23.9842505 L13.2035341,32.1907857" id="Line-Copy-2"></path>
+                    <path d="M20.2546415,23.9842505 L13.2035341,32.1907857" id="Line-Copy-2"></path>
+                    <path d="M9.67798048,16.6171452 L13.2035341,21.3130074" id="Line-Copy-2"></path>
+                    <path d="M16.7290878,16.6171452 L13.1257323,21.4166357" id="Line-Copy-2"></path>
+                </g>
+                <g id="Group-2" transform="translate(4.000000, 32.000000)">
+                    <path d="M0.5,5.64151361 L0.5,1.33967695" id="Line"></path>
+                    <path d="M3.5,8.64151361 L3.5,4.33967695" id="Line"></path>
+                    <path d="M6.5,10.6415136 L6.5,6.33967695" id="Line"></path>
+                </g>
+                <g id="Group-2" transform="translate(20.000000, 37.500000) scale(-1, 1) translate(-20.000000, -37.500000) translate(16.000000, 32.000000)">
+                    <path d="M0.5,5.64151361 L0.5,1.33967695" id="Line"></path>
+                    <path d="M3.5,8.64151361 L3.5,4.33967695" id="Line"></path>
+                    <path d="M6.5,10.6415136 L6.5,6.33967695" id="Line"></path>
+                </g>
+                <g id="Group-4" transform="translate(22.000000, 43.000000)">
+                    <path d="M1.5,4.5 L1.5,0.214285714" id="Line"></path>
+                    <path d="M4.5,5.78571429 L4.5,3.21428571" id="Line"></path>
+                    <path d="M7.5,6.78571429 L7.5,3.5" id="Line"></path>
+                    <path d="M10.5,6.78571429 L10.5,4.21428571" id="Line"></path>
+                    <path d="M13.5,6.78571429 L13.5,3.5" id="Line"></path>
+                    <path d="M16.5,6.78571429 L16.5,2.5" id="Line"></path>
+                    <path d="M22.5,2.78571429 L22.5,0.214285714" id="Line-Copy-2"></path>
+                    <path d="M19.5,4.78571429 L19.5,1.5" id="Line-Copy-2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
