@@ -502,10 +502,11 @@ font-size: 120%;
 
 .favSearch{
     min-height: calc(100vh - 30vh);
-    man-height: calc(100vh - 30vh);
+    max-height: calc(100vh - 30vh);
     background-color: #EEEEF2 !important;
     border-width: 3px 3px 3px 0;
     border-style: solid;
+	margin-left:-16px;
     -webkit-border-image:
             -webkit-gradient(linear, 0 0, 100% 0, from(#EEEEF2), to(#F8F8FB)) 1 100%;
     -webkit-border-image:

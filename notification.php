@@ -199,7 +199,7 @@ include_once("./checkCookie.php");
 						}
 						else
 						{
-							echo "Aucun produit suivi";
+							echo "<span id=\"noKeywordProduct\">Aucun produit suivi</span>";
 						}
                     }
 
@@ -811,6 +811,8 @@ include_once("./checkCookie.php");
 							$("#addKeyword").hide();
 							$("#updateProduit").show();
 							$("#optProduit").hide();
+							$("#noKeywordProduct").hide();
+							
                         }
                         else {
                             alert("Erreur, merci de contacter l'administrateur"+item.itemId);
