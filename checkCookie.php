@@ -13,6 +13,10 @@ if(!isset($_SESSION)) {
     session_start();
 
 }
+else
+{
+	session_destroy();
+}
 $dbh = getConnection();
 
 if(!is_null($dbh))
@@ -20,7 +24,6 @@ if(!is_null($dbh))
 
 //echo $_COOKIE['ssu'];
     if(isset($_COOKIE['ssu']))
-
     {
 
         $ssid = $_COOKIE["ssu"];

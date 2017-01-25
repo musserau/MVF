@@ -67,7 +67,7 @@ try {
                     $_SESSION["firstConnexion"] = 0;
 
                     if($cookie==1){
-                        setcookie('ssu', $sid, time() + 365*24*3600, null, null, false, true);
+                        setcookie('ssu', $row["id_user"], time() + 365*24*3600, null, null, false, true);
                     }
 
                     echo "[{\"ok\":\"true\"}]";

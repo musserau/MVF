@@ -12,7 +12,7 @@ $dbh = getConnection();
 $stmt = $dbh->prepare($baseRequest);
 
 $stmt->bindValue(':brand', $brand, PDO::PARAM_INT);
-$stmt->bindValue(':user', $user, PDO::PARAM_INT);
+$stmt->bindValue(':user', $user, PDO::PARAM_STR);
 
 $stmt->execute();
 

@@ -11,7 +11,7 @@ function getConnection()
     $host = "localhost";
     $dbname = "venteflashV2";
     $user = "root";
-    $pwd = "";
+    $pwd = "R0ot@leoni";
 
     try {
         $bdd = new PDO('mysql:host=' . $host . ';dbname=' . $dbname . ';charset=utf8', $user, $pwd);

@@ -24,6 +24,7 @@ include_once("./checkCookie.php");
     <div class="navbar" role="navigation">
 
     <?php include("header.php"); ?>
+
     <div class="row">
         <!-- sidebar -->
         <?php include("side.php"); ?>
@@ -31,32 +32,35 @@ include_once("./checkCookie.php");
         <!-- // sidebar -->
 
         <div class="col-sm-9 col-lg-9 inner-page ">
+            <h3 class="text-center titleConf">CONFIGURATION NOTIFICATIONS</h3>
+            <br>
+            <!-- look for brand -->
+            <div class=" col-sm-5 col-lg-6 brandNotif" id="brandNotif">
 
-            <!-- look for fav -->
-            <div class=" col-sm-4 col-lg-4 favSearch ">
-                <div class="input-group searchBrandGroup">
-
-                    <input class="form-control searchBrand" placeholder="Rechercher vos marques préférées" name="searchBrand" id="searchBrand" type="text">
-                    <span class="input-group-btn">
-                             <button class="btn btn-default btn-search searchBtn" type="button"></button>
-                        </span>
+                <div class="headerNotification">
+                    MARQUE
+					<span class="headerBlock">Modifier</span>
                 </div>
-                <div class="match" id="match">
-                </div>
+                <div id="searchBrandBlock" hidden>
+                    <div class="input-group searchBrandGroup">
 
-            </div>
-            <!-- fave saved-->
-            <div class=" col-sm-7 col-lg-8 favSaved" id="favSaved">
-                <h4 class="text-center titleConf">CONFIGURATION FAVORIS</h4>
+                        <input class="form-control searchBrand" placeholder="Rechercher vos marques préférées" name="searchBrand" id="searchBrand" type="text">
+                        <span class="input-group-btn">
+                                 <button class="btn btn-default btn-search searchBtn" type="button"></button>
+						</span>
+                    </div>
+                    <div class="match" id="match">
+                    </div>
+                </div>
                 <div class="favBrandSaved" id="favBrandSaved">
-                    <p class="text-center">Retrouvez içi vos favoris</p>
+                    
 
 
                     <?php
 
 
 
-                    $sql = "SELECT DISTINCT (m.id_marque) as mid , m.nom, m.logo ";
+                    $sql = "SELECT DISTINCT (m.id_marque) as mid , m.nom, m.logo, u.id_utilisateur ";
                     $sql .= "FROM tb_utilisateur_marque as um ";
                     $sql .= "LEFT JOIN tb_utilisateur as u on um.id_utilisateur =u.id_utilisateur ";
                     $sql .= "LEFT JOIN tb_marque as m on um.id_marque = m.id_marque ";
@@ -71,15 +75,65 @@ include_once("./checkCookie.php");
                         $resultFav = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($resultFav as $rowB)
                         {
-
+                            $idUser= $rowB["id_utilisateur"];
                             ?>
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 blockBrand" id="brand<?php echo $rowB["mid"];?>">
-                                <div class="boxFavBrand ">
-                                    <img src="../private/marchand/logo/<?php echo $rowB["logo"];?>"  class="imgBrandFav">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 blockBrand" id="brand<?php echo $rowB["mid"];?>">
+                                <div class="boxNotifBrand ">
+									<div>
+										<img src="../private/marchand/logo/<?php echo $rowB["logo"];?>"  class="imgBrandFav">
+										<span style="white-space:nowrap;padding-left: 5px"> <b><?php echo$rowB["nom"]; ?></b></span>
+										<img class="img-delete" id="imgCheckedCat2" src="img/del.png" onclick="removeFavBrand(<?php echo $rowB["mid"];?>)" style="display: inline;">
+									<div class="optionNotifBrand" id="optionNotifBrand<?php echo $rowB["mid"];?>" >
+									<div onclick="showAddKeywordBrand(<?php echo $rowB["mid"];?>)" class="blockProduit" id="blockProduit<?php echo $rowB["mid"];?>">Produits</div>
 
-                                    <span style="white-space:nowrap;"><?php echo$rowB["nom"]; ?></span>
-                                    <img class="img-delete" id="imgCheckedCat2" src="img/del.png" onclick="removeFavBrand(<?php echo $rowB["mid"];?>)" style="display: inline;">
 
+                                        <?php
+                                        $sql = " SELECT keyword_marque ";
+                                        $sql .= " FROM tb_utilisateur_marque ";
+										$sql .= " LEFT JOIN tb_utilisateur on tb_utilisateur_marque.id_utilisateur = tb_utilisateur.id_utilisateur ";
+										$sql .= " WHERE tb_utilisateur.id_user = :user ";
+                                        $sql .= " AND  id_marque= :brand ";
+                                        $dbh = getConnection();
+                                        $stmtKey = $dbh->prepare($sql);
+
+                                        $stmtKey->bindParam(':user', $_SESSION["user"], PDO::PARAM_INT);
+                                        $stmtKey->bindParam(':brand', $rowB["mid"], PDO::PARAM_INT);
+
+                                        if ($stmtKey->execute())
+                                        {
+                                            $resultKey = $stmtKey->fetchAll(PDO::FETCH_ASSOC);
+                                            foreach ($resultKey as $rowKey)
+                                            {
+                                                if($rowKey['keyword_marque'] != "parent")
+                                                {
+                                        ?>
+
+                                                <div class="keywordBrand" id="keyword_marque<?php echo $rowKey["keyword_marque"];?>">
+
+                                                   <span> <?php echo $rowKey["keyword_marque"];?></span>
+													
+                                                    <img class="img-delete-keyword" src="img/del.png"  onclick="delKeywordBrand('<?php echo $rowKey["keyword_marque"];?>',<?php echo $rowB["mid"];?>)">
+                                                </div>
+
+
+                                        <?php
+                                                }
+                                            }
+                                        }
+                                            ?>
+									</div>
+									
+									<div class="addKeywordBrand" id="addKeywordBrand<?php echo $rowB["mid"];?>" hidden>
+										<div class="input-group searchBrandGroup">
+											<input class="form-control searchBrand" placeholder="soins, chaussuren IPhone 6s" id="keywordBrand<?php echo $rowB["mid"];?>" type="text">
+											<span class="input-group-btn">
+													 <button class="btn btn-default btn-add searchBtn" onclick="addKeywordBrand(<?php echo $rowB["mid"];?>)" type="button"></button>
+											</span>
+										</div>
+									Vous pouvez indiquer plusieur produits en les séparant d'une virgule
+									</div>
+									
+									</div>
                                 </div>
                             </div>
                             <?php
@@ -97,6 +151,99 @@ include_once("./checkCookie.php");
 
 
                 </div>
+
+            </div>
+
+
+
+            <!-- conf-->
+            <div class=" col-sm-5 col-lg-6 " >
+
+                <div class="headerNotification">
+                    PRODUIT
+					<div class="headerBlock" id="updateProduit" onclick="showAddKeyword()">Modifier</div>	
+					<div class="headerBlock" hidden id="optProduit" onclick="quitAddKeyword()">Annuler</div>	
+                </div>
+				
+				
+                <div class="keywordBlock" id="keywordBlock">
+				<?php
+
+                    $sql = "SELECT k.id_keyword_produit, k.libelle ";
+                    $sql .= "FROM tb_keyword_produit as k ";
+                    $sql .= "LEFT JOIN tb_utilisateur as u on k.id_utilisateur =u.id_utilisateur ";
+                    $sql .= "WHERE u.id_user = :user ";
+                    $dbh = getConnection();
+                    $stmt = $dbh->prepare($sql);
+
+                    $stmt->bindParam(':user', $_SESSION["user"], PDO::PARAM_STR);
+
+                    if ($stmt->execute())
+                    {
+						$count = $stmt->rowCount();
+						if($count>0)
+						{
+							$resultFav = $stmt->fetchAll(PDO::FETCH_ASSOC);
+							foreach ($resultFav as $rowB)
+							{
+
+								?>
+								<div class="keywordBrandWhite" id="keyword_produit<?php echo $rowB["id_keyword_produit"];?>">
+
+                                                   <span> <?php echo $rowB["libelle"];?></span>
+													
+                                                    <img class="img-delete-keyword" src="img/del.png"  onclick="delKeyword(<?php echo $rowB["id_keyword_produit"];?>)">
+								</div>
+								<?php
+							}
+						}
+						else
+						{
+							echo "Aucun produit suivi";
+						}
+                    }
+
+
+
+
+
+                    ?>
+                </div>
+				
+				<div class="addKeyword" id="addKeyword" hidden>
+					<div class="input-group searchBrandGroup">
+						<input class="form-control searchBrand" placeholder="soins, chaussuren IPhone 6s" id="keyword" type="text">
+						<span class="input-group-btn">
+								 <button class="btn btn-default btn-add searchBtn" onclick="addKeyword()" type="button"></button>
+						</span>
+					</div>
+				Vous pouvez indiquer plusieur produits en les séparant d'une virgule
+				</div>
+
+				
+                <div class="headerNotification">
+                    FREQUENCE
+					<div class="headerBlock" id="updateFrequence">Modifier</div>
+					<div class="headerBlock" hidden id="optFrequence">Annuler</div>	
+				</div>	
+					
+					
+               
+
+			
+					
+                <div class="headerNotification">
+                    RAPPEL
+					<div class="headerBlock" id="updateRappel >Modifier</div>
+					<div class="headerBlock" hidden id="optRappel">Annuler</div>	
+                </div>
+
+                <div class="headerNotification">
+                    ALERT MAIL
+					<div class="headerBlock" id="updateAlert">Modifier</div>
+					<div class="headerBlock" hidden id="optAlert">Annuler</div>	
+                </div>
+
 
             </div>
 
@@ -489,11 +636,200 @@ include_once("./checkCookie.php");
         {
             $("#img-brand-disabled").show();
             $("#img-brand-enabled").hide();
+		
         }
     }
 
 
+	function showAddKeywordBrand(brand)
+	{
+            $("#optionNotifBrand"+brand).hide();
+            $("#addKeywordBrand"+brand).show();
+    }
+	function showAddKeyword()
+	{
+            $("#keywordBlock").hide();
+            $("#addKeyword").show();
+			$("#updateProduit").hide();
+			$("#optProduit").show();
+			
+    }
+	function quitAddKeyword()
+	{
+            $("#keywordBlock").show();
+            $("#addKeyword").hide();
+			$("#updateProduit").show();
+			$("#optProduit").hide();
+			
+    }
+	
+	
 
+    function delKeywordBrand(keyword_marque,brand)
+    {
+
+			 $.ajax({
+                url: './script/delKeywordBrand.php',
+                data: {
+                    brand: brand,
+                    keyword: keyword_marque
+                },
+                type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+                dataType: 'json', //return data in json format
+                success: function (data) {
+                    $.map(data, function (item) {
+
+                        if (item.ok == "true") {
+                            // remove div
+                            $("#keyword_marque"+keyword_marque).remove();
+
+                        }
+                        else {
+                            alert("Erreur, merci de contacter l'administrateur");
+                        }
+                    })
+                },
+                error: function (e) {
+
+                    alert("Error contact the administrator" + e.responseText);
+                }
+            });
+    }
+	
+	function delKeyword(keyword)
+    {
+		 $.ajax({
+			url: './script/delKeyword.php',
+			data: {
+				keyword: keyword
+			},
+			type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+			dataType: 'json', //return data in json format
+			success: function (data) {
+				$.map(data, function (item) {
+
+					if (item.ok == "true") {
+						// remove div
+						$("#keyword_produit"+keyword).remove();
+
+					}
+					else {
+						alert("Erreur, merci de contacter l'administrateur");
+					}
+				})
+			},
+			error: function (e) {
+
+				alert("Error contact the administrator" + e.responseText);
+			}
+		});
+    }
+
+	function addKeywordBrand(brand)
+	{
+				
+		var keyword=$("#keywordBrand"+brand).val();
+        if(keyword !="") {
+            $.ajax({
+                url: './script/addKeywordBrand.php',
+                data: {
+                    brand: brand,
+                    keyword: keyword
+
+                },
+                type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+                dataType: 'json', //return data in json format
+                success: function (data) {
+                    $.map(data, function (item) {
+
+                        if (item.ok == "true") {
+                            // apend span
+                            $("#optionNotifBrand" + brand).show();
+                            $("#addKeywordBrand" + brand).hide();
+							$("#optionNotifBrand"+brand).append($('<div class="keywordBrand" id="keyword_marque'+keyword+'">')
+                                                   .append($('<span>'+keyword+'</span><img class="img-delete-keyword" src="img/del.png" onclick="delKeywordBrand(\''+keyword+'\','+brand+')">')));
+						
+							$("#keywordBrand"+brand).val('');
+                        }
+                        else {
+                            alert("Erreur, merci de contacter l'administrateur");
+                        }
+                    })
+                },
+                error: function (e) {
+
+                    alert("Error contact the administrator" + e.responseText);
+                }
+            });
+        }
+        else
+        {
+            alert("le champs est vide");
+        }
+			
+	}
+	
+	function addKeyword()
+	{
+				
+		var keyword=$("#keyword").val();
+        if(keyword !="") {
+            $.ajax({
+                url: './script/addKeyword.php',
+                data: {
+                    keyword: keyword
+                },
+                type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+                dataType: 'json', //return data in json format
+                success: function (data) {
+                    $.map(data, function (item) {
+
+                        if (item.ok == "true") {
+							
+							if(item.nbItem == "1")
+							{
+								// append 
+								$("#keywordBlock").append($('<div class="keywordBrandWhite" id="keyword_produit'+item.itemId+'">')
+                                                   .append($('<span>'+keyword+'</span><img class="img-delete-keyword" src="img/del.png" onclick="delKeyword(\''+item.itemId+'\')">')));
+							}
+							else if(item.nbItem > "1")
+							{
+								for(var x=1;x<= item.nbItem;x++ )
+								{
+									var id="item"+x+"Id";
+									var val="item"+x+"Val";
+									
+								// append item1Id
+								$("#keywordBlock").append($('<div class="keywordBrandWhite" id="keyword_produit'+item[id]+'">')
+                                                   .append($('<span>'+item[val]+'</span><img class="img-delete-keyword" src="img/del.png" onclick="delKeyword(\''+item[id]+'\')">')));
+							
+								}
+								
+							}
+							$("#keyword").val('');
+							$("#keywordBlock").show();
+							$("#addKeyword").hide();
+							$("#updateProduit").show();
+							$("#optProduit").hide();
+                        }
+                        else {
+                            alert("Erreur, merci de contacter l'administrateur"+item.itemId);
+                        }
+                    })
+                },
+                error: function (e) {
+
+                    alert("Error contact the administrator" + e.responseText);
+                }
+            });
+        }
+        else
+        {
+            alert("le champs est vide");
+        }
+			
+	}
+	
 
     function addFavBrand(brand)
     {
