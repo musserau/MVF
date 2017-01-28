@@ -12,9 +12,11 @@ include_once("connection.php");
 if(!isset($_SESSION)) {
     session_start();
 
+
 }
 else
 {
+
 	session_destroy();
 }
 $dbh = getConnection();
@@ -43,11 +45,11 @@ if(!is_null($dbh))
 
         if($count == 1)
         {
-          /*  $_SESSION["user"] = $_COOKIE['ssu'];
+            $_SESSION["user"] = $_COOKIE['ssu'];
             $_SESSION["email"] = $result["email"];
             $_SESSION["rememberMe"]=$result["cookie"];
             $_SESSION["notifMail"]=$result["notif_mail"];
-            $_SESSION["notifCounter"]= $result["notif_counter"];*/
+            $_SESSION["notifCounter"]= $result["notif_counter"];
 
 
         }

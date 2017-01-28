@@ -6,9 +6,6 @@ $baseRequest = "
 		select count(email) as mail 
 		FROM tb_utilisateur 
 		WHERE email = :mail";
-		
-
-
 
 include_once("../connection.php");
 

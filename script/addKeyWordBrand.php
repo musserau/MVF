@@ -9,12 +9,26 @@ $user=$_SESSION["user"];
 
 $dbh = getConnection();
 
+$nbKeyword=1;
+$itemList="";
+
+$keyword=trim($keyword);
+
+if(substr($keyword, -1)==",")
+{
+    $keyword=substr($keyword, 0, -1);
+}
+
 
 
 if (strpos($keyword, ',') !== false) 
 {
 	
   $tabKeyword = explode(",", $keyword);
+  $nbKeyword=count($tabKeyword);
+  $nbKeywordRefactor=$nbKeyword;
+  $x=1;
+  $itemList.=",";
   foreach ($tabKeyword as &$value) 
   {
     $keywordTrim = trim($value);
@@ -27,6 +41,21 @@ if (strpos($keyword, ',') !== false)
 
 	$stmt->execute();
 	
+	if($x==$nbKeyword)
+		{
+			
+			$itemList.= " \"item".$x."Val\":\"".$keywordTrim."\" ";
+			
+		}
+		else
+		{
+			
+			$itemList.= " \"item".$x."Val\":\"".$keywordTrim."\", ";
+			
+		}
+			
+		$x++;
+	
 	}
 
 }
@@ -38,9 +67,10 @@ else
 	$stmt->bindValue(':user', $user, PDO::PARAM_STR);
 	$stmt->bindValue(':keyword', $keyword, PDO::PARAM_STR);
 	$stmt->execute();
+
 }
 
-$jsonBrand="[{\"ok\":\"true\"}]";
+$jsonBrand="[{\"ok\":\"true\" , \"nbItem\":\"".$nbKeyword."\" ".$itemList."}]";
 
 
 echo $jsonBrand;

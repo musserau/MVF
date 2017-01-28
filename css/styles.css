@@ -65,6 +65,15 @@ button.btn-add {
     border-left: transparent;
 }
 
+button.btn-close{
+    background: url("../img/Précédent.png") center center no-repeat;
+    background-size: 20px 25px;
+    height: 34px;
+    width: 37px;
+    border-left: transparent;
+}
+
+
 button.btn-header {
   border: transparent;
   width: 53px;
@@ -561,10 +570,18 @@ font-size: 120%;
 
 
 .searchBrandGroup{
+     margin-top: calc(100vh - 97vh);
+     border-bottom-left-radius: 0;
+     border-top-left-radius: 0;
+ }
+.searchBrandGroupNotif{
     margin-top: calc(100vh - 97vh);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
+    margin-left:5px;
+    margin-right:5px;
 }
+
 .match{
     margin-left: 10px;
     margin-top: 10px;
@@ -703,4 +720,12 @@ font-size: 120%;
     cursor: pointer;
 	margin-left: 4px;
 
+}
+
+.spanAddKeyword{
+
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    margin-left: 12px;
+    display: block;
 }

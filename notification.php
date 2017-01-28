@@ -39,8 +39,10 @@ include_once("./checkCookie.php");
 
                 <div class="headerNotification">
                     MARQUE
-					<span class="headerBlock">Modifier</span>
+                    <div class="headerBlock" id="updateBrand" onclick="showAddBrand()">Modifier</div>
+                    <div class="headerBlock" hidden id="optBrand" onclick="quitAddBrand()">Retour</div>
                 </div>
+
                 <div id="searchBrandBlock" hidden>
                     <div class="input-group searchBrandGroup">
 
@@ -124,13 +126,15 @@ include_once("./checkCookie.php");
 									</div>
 									
 									<div class="addKeywordBrand" id="addKeywordBrand<?php echo $rowB["mid"];?>" hidden>
-										<div class="input-group searchBrandGroup">
-											<input class="form-control searchBrand" placeholder="soins, chaussuren IPhone 6s" id="keywordBrand<?php echo $rowB["mid"];?>" type="text">
+										<div class="input-group searchBrandGroupNotif">
+											<input class="form-control searchBrand" placeholder="soins, chaussure, IPhone 6s" id="keywordBrand<?php echo $rowB["mid"];?>" type="text">
 											<span class="input-group-btn">
-													 <button class="btn btn-default btn-add searchBtn" onclick="addKeywordBrand(<?php echo $rowB["mid"];?>)" type="button"></button>
+                                                     <button class="btn btn-default btn-add searchBtn" onclick="addKeywordBrand(<?php echo $rowB["mid"];?>)" type="button"></button>
+													 <button class="btn btn-default btn-close searchBtn" onclick="closeKeywordBrand(<?php echo $rowB["mid"];?>)" type="button"></button>
 											</span>
 										</div>
-									Vous pouvez indiquer plusieur produits en les séparant d'une virgule
+
+                                        <span class="spanAddKeyword" >Vous pouvez indiquer plusieur produits en les séparant d'une virgule</span>
 									</div>
 									
 									</div>
@@ -212,12 +216,12 @@ include_once("./checkCookie.php");
 				
 				<div class="addKeyword" id="addKeyword" hidden>
 					<div class="input-group searchBrandGroup">
-						<input class="form-control searchBrand" placeholder="soins, chaussuren IPhone 6s" id="keyword" type="text">
+						<input class="form-control searchBrand" placeholder="soins, chaussure, IPhone 6s" id="keyword" type="text">
 						<span class="input-group-btn">
 								 <button class="btn btn-default btn-add searchBtn" onclick="addKeyword()" type="button"></button>
 						</span>
 					</div>
-				Vous pouvez indiquer plusieur produits en les séparant d'une virgule
+                    <span class="spanAddKeyword" > Vous pouvez indiquer plusieur produits en les séparant d'une virgule</span>
 				</div>
 
 				
@@ -234,16 +238,32 @@ include_once("./checkCookie.php");
 					
                 <div class="headerNotification">
                     RAPPEL
-					<div class="headerBlock" id="updateRappel >Modifier</div>
+					<div class="headerBlock" id="updateRappel" >Modifier</div>
 					<div class="headerBlock" hidden id="optRappel">Annuler</div>	
                 </div>
 
                 <div class="headerNotification">
                     ALERT MAIL
-					<div class="headerBlock" id="updateAlert">Modifier</div>
-					<div class="headerBlock" hidden id="optAlert">Annuler</div>	
                 </div>
+                <?php
 
+                $baseRequest = "select notif_mail  FROM tb_utilisateur WHERE id_user = :user";
+
+                $stmt = $dbh->prepare($baseRequest);
+                $stmt->bindValue('user', $_SESSION["user"], PDO::PARAM_STR);
+                $stmt->execute();
+                $result = $stmt->fetch();
+                $notif_mail=$result["notif_mail"];
+                $checked="";
+
+                if($notif_mail==1) {
+                    $checked="checked";
+                }
+                ?>
+                <div class="checkbox" onclick="changeAlertMail()">
+                    <input id="checkboxAlertMailOption" <?php echo $checked; ?>  type="checkbox" >
+                    <label for="checkboxAlertMailOption"> Je souhaite être alerté par mail</label>
+                </div>
 
             </div>
 
@@ -641,6 +661,30 @@ include_once("./checkCookie.php");
     }
 
 
+    function showAddBrand()
+    {
+
+
+        $("#searchBrandBlock").show();
+        $("#favBrandSaved").hide();
+
+
+        $("#updateBrand").hide();
+        $("#optBrand").show();
+    }
+
+    function quitAddBrand()
+    {
+        $("#searchBrandBlock").hide();
+        $("#favBrandSaved").show();
+
+        $("#optBrand").hide();
+        $("#updateBrand").show();
+    }
+
+
+
+
 	function showAddKeywordBrand(brand)
 	{
             $("#optionNotifBrand"+brand).hide();
@@ -725,6 +769,45 @@ include_once("./checkCookie.php");
 		});
     }
 
+    function closeKeywordBrand(brand)
+    {
+        $("#optionNotifBrand" + brand).show();
+        $("#addKeywordBrand" + brand).hide();
+        $("#keywordBrand" + brand).val('');
+    }
+
+
+    function changeAlertMail()
+    {
+        var alertMail=0;
+        if( $('#checkboxAlertMailOption').is(':checked') )
+        {
+            alertMail = 1;
+        }
+        $.ajax({
+            url: './script/updateAlertMail.php',
+            data: {
+                alertMail: alertMail
+            },
+            type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+            dataType: 'json', //return data in json format
+            success: function (data) {
+                $.map(data, function (item) {
+
+                    if (item.update == "true") {
+                    }
+                    else {
+                        alert("Erreur, merci de contacter l'administrateur");
+                    }
+                })
+            },
+            error: function (e) {
+
+                alert("Error contact the administrator" + e.responseText);
+            }
+        });
+    }
+
 	function addKeywordBrand(brand)
 	{
 				
@@ -743,12 +826,36 @@ include_once("./checkCookie.php");
                     $.map(data, function (item) {
 
                         if (item.ok == "true") {
+
+
+                            if(item.nbItem == "1")
+                            {
+                               $("#optionNotifBrand"+brand).append($('<div class="keywordBrand" id="keyword_marque'+keyword+'">')
+                                    .append($('<span>'+keyword+'</span><img class="img-delete-keyword" src="img/del.png" onclick="delKeywordBrand(\''+keyword+'\','+brand+')">')));
+
+                            }
+                            else if(item.nbItem > "1")
+                            {
+                                for(var x=1;x<= item.nbItem;x++ )
+                                {
+                                    var val="item"+x+"Val";
+
+                                 $("#optionNotifBrand"+brand).append($('<div class="keywordBrand" id="keyword_marque'+item[val]+'">')
+                                        .append($('<span>'+item[val]+'</span><img class="img-delete-keyword" src="img/del.png" onclick="delKeywordBrand(\''+item[val]+'\','+brand+')">')));
+
+                                }
+
+                            }
+
+
+
+
+
+
                             // apend span
                             $("#optionNotifBrand" + brand).show();
                             $("#addKeywordBrand" + brand).hide();
-							$("#optionNotifBrand"+brand).append($('<div class="keywordBrand" id="keyword_marque'+keyword+'">')
-                                                   .append($('<span>'+keyword+'</span><img class="img-delete-keyword" src="img/del.png" onclick="delKeywordBrand(\''+keyword+'\','+brand+')">')));
-						
+
 							$("#keywordBrand"+brand).val('');
                         }
                         else {
@@ -853,12 +960,23 @@ include_once("./checkCookie.php");
 
                         if(item.ok =="true")
                         {
-                            $(".favBrandSaved:last").after($('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 blockBrand" id="brand'+brand+'">')
-                                                   .append($('<div class="boxFavBrand">')
-                                                   .append($('<img src="../private/marchand/logo/'+item.logo+'" class="imgBrandFav">'))
-                                                   .append($('<span style="white-space:nowrap;">'+item.nom+'</span>')))
-                                                   .append($('<img class="img-delete" id="imgCheckedCat2" src="img/del.png" onclick="removeFavBrand('+brand+')" style="display: inline;">'))
-                                                   );
+                            $(".favBrandSaved:last").append($('<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 blockBrand" id="brand'+brand+'">')
+                                                        .append($('<div class="boxNotifBrand">')
+                                                            .append($('<div>')
+                                                                   .append($('<img src="../private/marchand/logo/'+item.logo+'" class="imgBrandFav">'))
+                                                                   .append($('<span style="white-space:nowrap;padding-left: 5px">'+item.nom+'</span>'))
+                                                                   .append($('<img class="img-delete" id="imgCheckedCat2" src="img/del.png" onclick="removeFavBrand('+brand+')" style="display: inline;">'))
+                                                            .append($('<div class="optionNotifBrand" id="optionNotifBrand'+brand+'" >')
+                                                               .append($('<div onclick="showAddKeywordBrand('+brand+')" class="blockProduit" id="blockProduit'+brand+'">Produits</div>')))
+                                                            .append($('<div class="addKeywordBrand" id="addKeywordBrand'+brand+'" hidden="" >')
+                                                                .append($(' <div class="input-group searchBrandGroupNotif">')
+                                                                   .append($('<input class="form-control searchBrand" placeholder="soins, chaussure, IPhone 6s" id="keywordBrand'+brand+'" type="text">'))
+                                                                   .append($('<span class="input-group-btn">')
+                                                                       .append($('<button class="btn btn-default btn-add searchBtn" onclick="addKeywordBrand('+brand+')" type="button"></button>'))
+                                                                       .append($('<button class="btn btn-default btn-close searchBtn" onclick="closeKeywordBrand('+brand+')" type="button"></button>'))))
+                                                                 .append($('<span class="spanAddKeyword">Vous pouvez indiquer plusieur produits en les séparant d\'une virgule</span>'))))
+
+                            ));
 
 
 
