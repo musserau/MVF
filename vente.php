@@ -337,21 +337,7 @@ print_r($_SESSION);
 	</div>
 
 	<!-- Left Navigation on SMALL screens (mmenu) -->
-	<nav id="menu-left" class="padd-menu">
-		<ul>
-			<li>
-				<a href="#">Blank link</a>
-				<ul>
-					<li><a href="#">First sub-item</a></li>
-					<li><a href="#">Second sub-item</a></li>
-					<li><a href="#">Third sub-item</a></li>
-				</ul>
-			</li>
-			<li><a href="index.php">Fixed header</a></li>
-			<li><a href="horizontal-submenus.html">Horizontal submenus</a></li>
-			<li><a href="left-right-mmenu.html">Left/Right menu</a></li>
-		</ul>
-	</nav>
+<?php include("sideSmall.php"); ?>
 	<!-- // Left Navigation on SMALL screens (mmenu) -->
 
 

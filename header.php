@@ -99,8 +99,8 @@ var_dump($_COOKIE);
 									<img src = \"img/menu-partage.png\" >
 								</button >
 								<ul class=\"dropdown-menu\" >
-									<li ><a href = \"#\" > Faire une recommendation </a ></li >
-									<li ><a href = \"#\" > Signaler un problème </a ></li >
+									<li ><a href = \"./recommendation.php\" > Faire une recommendation </a ></li >
+									<li ><a href = \"./probleme.php\" > Signaler un problème </a ></li >
 								</ul >
 							</li >
 						</ul >

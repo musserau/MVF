@@ -103,6 +103,58 @@ input.form-search {
     margin-right: auto;
 }
 
+.prenomProblem{
+    border-radius: 30px;
+    width:40%;
+    display: inline;
+    padding: 0px 20px;
+    margin-left: 20%;
+
+}
+
+.nomProblem{
+    border-radius: 30px;
+    width:40%;
+    display: inline;
+
+    padding: 0px 20px;
+    float:left;
+}
+.sujetProblem{
+    border-radius: 30px;
+    width:100%;
+    padding: 0px 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.blockProblem
+{
+    min-height: 100vh;
+    max-height: 100vh;
+    max-width: calc(100vw - 45vw);
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.messageProblem
+{
+    border-radius: 30px;
+    width:100%;
+    padding: 15px 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+
+
 .password{
 border-radius: 50px;
 width:80%;
@@ -708,7 +760,25 @@ font-size: 120%;
 
 .keywordBlock{
 	margin-top: 15px;	
-	margin-bottom: 15px;	
+	margin-bottom: 15px;
+
+}
+.notificationBlock
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+.frequenceBlock
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+
+.noData {
+    font-style: italic;
+    color: darkgray;
 }
 
 .img-delete-keyword{
@@ -722,10 +792,67 @@ font-size: 120%;
 
 }
 
+.img-delete-keyword-notification
+{
+position: absolute;
+
+width: 12px;
+height: 12px;
+
+cursor: pointer;
+right:25px;
+
+}
+
+.img-delete-keyword-frequence
+{
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    cursor: pointer;
+    right:25px;
+}
+
 .spanAddKeyword{
 
     margin-top: 10px !important;
     margin-bottom: 10px !important;
     margin-left: 12px;
     display: block;
+}
+
+.selectedNotification{
+    background-color: white;
+    border:1px solid #E2E2E8 ;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display:block;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    margin-top: 5px;
+}
+
+.selectedFrequence{
+    background-color: white;
+    border:1px solid #E2E2E8 ;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display:block;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    margin-top: 5px;
+}
+
+
+
+.addNotification{
+    margin-left: 45px;
 }

@@ -32,415 +32,31 @@ include_once("./checkCookie.php");
         <!-- // sidebar -->
 
         <div class="col-sm-9 col-lg-9 inner-page ">
-            <h3 class="text-center titleConf">CONFIGURATION NOTIFICATIONS</h3>
+            <h3 class="text-center titleConf">SIGNALER UN PROBLÈME</h3>
             <br>
-            <!-- look for brand -->
-            <div class=" col-sm-5 col-lg-6 brandNotif" id="brandNotif">
+            <form method="post" id="formProblem" action="./problemeOk.php">
+                <div class="blockProblem">
 
-                <div class="headerNotification">
-                    MARQUE
-                    <div class="headerBlock" id="updateBrand" onclick="showAddBrand()">Modifier</div>
-                    <div class="headerBlock" hidden id="optBrand" onclick="quitAddBrand()">Retour</div>
-                </div>
-
-                <div id="searchBrandBlock" hidden>
-                    <div class="input-group searchBrandGroup">
-
-                        <input class="form-control searchBrand" placeholder="Rechercher vos marques préférées" name="searchBrand" id="searchBrand" type="text">
-                        <span class="input-group-btn">
-                                 <button class="btn btn-default btn-search searchBtn" type="button"></button>
-						</span>
-                    </div>
-                    <div class="match" id="match">
-                    </div>
-                </div>
-                <div class="favBrandSaved" id="favBrandSaved">
-                    
-
-
-                    <?php
-
-
-
-                    $sql = "SELECT DISTINCT (m.id_marque) as mid , m.nom, m.logo, u.id_utilisateur ";
-                    $sql .= "FROM tb_utilisateur_marque as um ";
-                    $sql .= "LEFT JOIN tb_utilisateur as u on um.id_utilisateur =u.id_utilisateur ";
-                    $sql .= "LEFT JOIN tb_marque as m on um.id_marque = m.id_marque ";
-                    $sql .= "WHERE u.id_user = :user ";
-                    $dbh = getConnection();
-                    $stmt = $dbh->prepare($sql);
-
-                    $stmt->bindParam(':user', $_SESSION["user"], PDO::PARAM_STR);
-
-                    if ($stmt->execute())
-                    {
-                        $resultFav = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($resultFav as $rowB)
-                        {
-                            $idUser= $rowB["id_utilisateur"];
-                            ?>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 blockBrand" id="brand<?php echo $rowB["mid"];?>">
-                                <div class="boxNotifBrand ">
-									<div>
-										<img src="../private/marchand/logo/<?php echo $rowB["logo"];?>"  class="imgBrandFav">
-										<span style="white-space:nowrap;padding-left: 5px"> <b><?php echo$rowB["nom"]; ?></b></span>
-										<img class="img-delete" id="imgCheckedCat2" src="img/del.png" onclick="removeFavBrand(<?php echo $rowB["mid"];?>)" style="display: inline;">
-									<div class="optionNotifBrand" id="optionNotifBrand<?php echo $rowB["mid"];?>" >
-									<div onclick="showAddKeywordBrand(<?php echo $rowB["mid"];?>)" class="blockProduit" id="blockProduit<?php echo $rowB["mid"];?>">Produits</div>
-
-
-                                        <?php
-                                        $sql = " SELECT keyword_marque ";
-                                        $sql .= " FROM tb_utilisateur_marque ";
-										$sql .= " LEFT JOIN tb_utilisateur on tb_utilisateur_marque.id_utilisateur = tb_utilisateur.id_utilisateur ";
-										$sql .= " WHERE tb_utilisateur.id_user = :user ";
-                                        $sql .= " AND  id_marque= :brand ";
-                                        $dbh = getConnection();
-                                        $stmtKey = $dbh->prepare($sql);
-
-                                        $stmtKey->bindParam(':user', $_SESSION["user"], PDO::PARAM_INT);
-                                        $stmtKey->bindParam(':brand', $rowB["mid"], PDO::PARAM_INT);
-
-                                        if ($stmtKey->execute())
-                                        {
-                                            $resultKey = $stmtKey->fetchAll(PDO::FETCH_ASSOC);
-                                            foreach ($resultKey as $rowKey)
-                                            {
-                                                if($rowKey['keyword_marque'] != "parent")
-                                                {
-                                        ?>
-
-                                                <div class="keywordBrand" id="keyword_marque<?php echo $rowKey["keyword_marque"];?>">
-
-                                                   <span> <?php echo $rowKey["keyword_marque"];?></span>
-													
-                                                    <img class="img-delete-keyword" src="img/del.png"  onclick="delKeywordBrand('<?php echo $rowKey["keyword_marque"];?>',<?php echo $rowB["mid"];?>)">
-                                                </div>
-
-
-                                        <?php
-                                                }
-                                            }
-                                        }
-                                            ?>
-									</div>
-									
-									<div class="addKeywordBrand" id="addKeywordBrand<?php echo $rowB["mid"];?>" hidden>
-										<div class="input-group searchBrandGroupNotif">
-											<input class="form-control searchBrand" placeholder="soins, chaussure, IPhone 6s" id="keywordBrand<?php echo $rowB["mid"];?>" type="text">
-											<span class="input-group-btn">
-                                                     <button class="btn btn-default btn-add searchBtn" onclick="addKeywordBrand(<?php echo $rowB["mid"];?>)" type="button"></button>
-													 <button class="btn btn-default btn-close searchBtn" onclick="closeKeywordBrand(<?php echo $rowB["mid"];?>)" type="button"></button>
-											</span>
-										</div>
-
-                                        <span class="spanAddKeyword" >Vous pouvez indiquer plusieur produits en les séparant d'une virgule</span>
-									</div>
-									
-									</div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    }
-
-
-
-
-
-                    ?>
-
-
-
-
+                        <div class="form-group">
+                            <input class="form-control nomProblem " placeholder="Nom"  name="nom" id="nomProblem" type="text">
+                            <input class="form-control prenomProblem " placeholder="Prénom" name="prenomProblem" id="prenomProblem" type="text">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control sujetProblem " placeholder="Problème à signaler"  name="sujetProblem" id="sujetProblem" type="text">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control messageProblem" placeholder="Votre message" id="messageProblem" name="messageProblem" rows="15"></textarea>
+                        </div>
+                        <div class="align-center">
+                            <span id="submitProblem" onclick="checkForm()" class="btn btn-mvf btn-myacount-header-connexion">
+                                Envoyer</span>
+                        </div>
 
                 </div>
+            </form>
 
-            </div>
 
 
-
-            <!-- conf-->
-            <div class=" col-sm-5 col-lg-6 " >
-
-                <div class="headerNotification">
-                    PRODUIT
-					<div class="headerBlock" id="updateProduit" onclick="showAddKeyword()">Modifier</div>	
-					<div class="headerBlock" hidden id="optProduit" onclick="quitAddKeyword()">Retour</div>
-                </div>
-				
-				
-                <div class="keywordBlock" id="keywordBlock">
-				<?php
-
-                    $sql = "SELECT k.id_keyword_produit, k.libelle ";
-                    $sql .= "FROM tb_keyword_produit as k ";
-                    $sql .= "LEFT JOIN tb_utilisateur as u on k.id_utilisateur =u.id_utilisateur ";
-                    $sql .= "WHERE u.id_user = :user ";
-                    $dbh = getConnection();
-                    $stmt = $dbh->prepare($sql);
-
-                    $stmt->bindParam(':user', $_SESSION["user"], PDO::PARAM_STR);
-
-                    if ($stmt->execute())
-                    {
-						$count = $stmt->rowCount();
-						if($count>0)
-						{
-							$resultFav = $stmt->fetchAll(PDO::FETCH_ASSOC);
-							foreach ($resultFav as $rowB)
-							{
-
-								?>
-								<div class="keywordBrandWhite" id="keyword_produit<?php echo $rowB["id_keyword_produit"];?>">
-
-                                                   <span> <?php echo $rowB["libelle"];?></span>
-													
-                                                    <img class="img-delete-keyword" src="img/del.png"  onclick="delKeyword(<?php echo $rowB["id_keyword_produit"];?>)">
-								</div>
-								<?php
-							}
-						}
-						else
-						{
-							echo "<span class=\"noData\" id=\"noKeywordProduct\">Aucun produit suivi</span>";
-						}
-                    }
-
-
-
-
-
-                    ?>
-                </div>
-				
-				<div class="addKeyword" id="addKeyword" hidden>
-					<div class="input-group searchBrandGroup">
-						<input class="form-control searchBrand" placeholder="soins, chaussure, IPhone 6s" id="keyword" type="text">
-						<span class="input-group-btn">
-								 <button class="btn btn-default btn-add searchBtn" onclick="addKeyword()" type="button"></button>
-						</span>
-					</div>
-                    <span class="spanAddKeyword" > Vous pouvez indiquer plusieur produits en les séparant d'une virgule</span>
-				</div>
-
-
-
-                <div class="headerNotification">
-                    FREQUENCE
-					<div class="headerBlock" id="updateFrequence" onclick="showAddFrequence()">Modifier</div>
-					<div class="headerBlock" hidden id="optFrequence" onclick="quitAddFrequence()">Retour</div>
-				</div>
-
-
-                <div class="frequenceBlock" id="frequenceBlock" >
-
-                    <?php
-                    $sql  = " SELECT frequence.id,frequence.libelle ";
-                    $sql .= " FROM frequence  ";
-                    $sql .="  LEFT JOIN tb_utilisateur on frequence.id = tb_utilisateur.id_frequence  ";
-                    $sql .= " WHERE tb_utilisateur.id_user = :user";
-                    $dbh = getConnection();
-                    $stmtKey = $dbh->prepare($sql);
-
-                    $stmtKey->bindParam(':user', $_SESSION["user"], PDO::PARAM_INT);
-                    $notification = array();
-
-                    if ($stmtKey->execute())
-                    {
-                        $count = $stmtKey->rowCount();
-
-                        if($count>0) {
-                            $resultKey = $stmtKey->fetch(PDO::FETCH_ASSOC);
-                            ?>
-
-                            <?php
-
-                                ?>
-                                <div class="selectedFrequence" id="selectedFrequence">
-                                    <span id="selectedFrequenceSpan"><?php echo $resultKey["libelle"]; ?></span>
-
-                                </div>
-
-                                <?php
-
-
-                            ?>
-
-                            <?php
-                        }
-                        else
-                        {
-                            ?>
-                            <span class="noData" id="NotificationNoData">
-                            Contrôlez le nombre de vos notifications par jours
-                            </span>
-                            <?php
-                        }
-                    }
-                    ?>
-                </div>
-                <div class="addFrequence" id="addFrequence" hidden>
-
-                    <?php
-                    $sql  = " SELECT * ";
-                    $sql .= " FROM frequence  ";
-                    $dbh = getConnection();
-                    $stmtKey = $dbh->prepare($sql);
-
-                    if ($stmtKey->execute())
-                    {
-                        $resultKeyFrequence = $stmtKey->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($resultKeyFrequence as $rowKey) {
-
-                            $notifcheck="";
-                            if ($rowKey["id"]==$resultKey["id"])
-                            {
-                                $notifcheck="checked";
-                            }
-                            ?>
-
-
-                            <div class="blockFrequence<?php echo $rowKey["id"];?>" >
-                                <div class="radio" onclick="changeFrequence(<?php echo $rowKey["id"];?>,'<?php echo $rowKey["libelle"];?>')" >
-                                    <input name="frequenceRadio" id = "checkboxFrequence<?php echo $rowKey["id"];?>" <?php echo $notifcheck;?>  type = "radio" >
-                                    <label for="checkboxFrequence<?php echo $rowKey["id"];?>" > <?php echo $rowKey["libelle"];?> </label >
-                                </div >
-                            </div >
-
-                            <?php
-                        }}
-                    ?>
-
-                </div>
-
-
-
-
-
-
-               
-
-			
-					
-                <div class="headerNotification">
-                    RAPPEL
-					<div class="headerBlock" id="updateNotification" onclick="showAddNotif()">Modifier</div>
-					<div class="headerBlock" hidden id="optNotification" onclick="quitAddNotif()">Retour</div>
-                </div>
-
-                <div class="notificationBlock" id="notificationBlock" >
-
-                    <?php
-                    $sql  = "  SELECT tb_notification_delais.libelle, tb_notification_delais.id_notification_delais ";
-                    $sql .= " FROM tb_utilisateur_notification  ";
-                    $sql .="  LEFT JOIN tb_utilisateur on tb_utilisateur_notification.id_utilisateur = tb_utilisateur.id_utilisateur  ";
-                    $sql .= " LEFT JOIN tb_notification_delais on tb_utilisateur_notification.id_notification_delais = tb_notification_delais.id_notification_delais  ";
-                    $sql .= " WHERE tb_utilisateur.id_user = :user";
-                    $dbh = getConnection();
-                    $stmtKey = $dbh->prepare($sql);
-
-                    $stmtKey->bindParam(':user', $_SESSION["user"], PDO::PARAM_INT);
-                    $notification = array();
-
-                    if ($stmtKey->execute())
-                    {
-                        $count = $stmtKey->rowCount();
-                        if($count>0) {
-                            $resultKey = $stmtKey->fetchAll(PDO::FETCH_ASSOC);
-                            ?>
-
-                            <?php
-                            foreach ($resultKey as $rowKey)
-                            {
-                                $notification[]=$rowKey["id_notification_delais"];
-                                ?>
-
-
-
-                                <div class="selectedNotification" id="selectedNotification<?php echo $rowKey["id_notification_delais"];?>">
-                                    <?php echo $rowKey["libelle"]; ?>
-                                    <img class="img-delete-keyword-notification" src="img/del.png" onclick="delNotification(<?php echo $rowKey["id_notification_delais"];?>)">
-                                </div>
-
-                                <?php
-
-                            }
-                            ?>
-
-                            <?php
-                        }
-                        else
-                        {
-                            ?>
-                            <span class="noData" id="NotificationNoData">
-                        Choisissez le moment de réception de vos notifications
-                        </span>
-                            <?php
-                        }
-                    }
-                    ?>
-                </div>
-                <div class="addNotification" id="addNotification" hidden>
-
-                    <?php
-                    $sql  = " SELECT * ";
-                    $sql .= " FROM tb_notification_delais  ";
-                    $dbh = getConnection();
-                    $stmtKey = $dbh->prepare($sql);
-
-                    if ($stmtKey->execute())
-                    {
-                        $resultKey = $stmtKey->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($resultKey as $rowKey) {
-
-                            $notifcheck="";
-                            if (in_array($rowKey["id_notification_delais"],$notification))
-                            {
-                                $notifcheck="checked";
-
-                            }
-                            ?>
-
-
-                            <div class="blockNotification<?php echo $rowKey["id_notification_delais"];?>" >
-                            <div class="checkbox" onclick="changeNotif(<?php echo $rowKey["id_notification_delais"];?>,'<?php echo $rowKey["libelle"];?>')" >
-                                <input id = "checkboxNotification<?php echo $rowKey["id_notification_delais"];?>" <?php echo $notifcheck;?>  type = "checkbox" >
-                                <label for="checkboxNotification<?php echo $rowKey["id_notification_delais"];?>" > <?php echo $rowKey["libelle"];?> </label >
-                            </div >
-                        </div >
-
-                        <?php
-                    }}
-                    ?>
-
-                </div>
-
-
-                <div class="headerNotification">
-                    ALERT MAIL
-                </div>
-                <?php
-
-                $baseRequest = "select notif_mail  FROM tb_utilisateur WHERE id_user = :user";
-
-                $stmt = $dbh->prepare($baseRequest);
-                $stmt->bindValue('user', $_SESSION["user"], PDO::PARAM_STR);
-                $stmt->execute();
-                $result = $stmt->fetch();
-                $notif_mail=$result["notif_mail"];
-                $checked="";
-
-                if($notif_mail==1) {
-                    $checked="checked";
-                }
-                ?>
-                <div class="checkbox" onclick="changeAlertMail()">
-                    <input id="checkboxAlertMailOption" <?php echo $checked; ?>  type="checkbox" >
-                    <label for="checkboxAlertMailOption"> Je souhaite être alerté par mail</label>
-                </div>
-
-            </div>
 
         </div>
 
@@ -453,6 +69,7 @@ include_once("./checkCookie.php");
         <p>&copy; 2016 Company, Inc.</p>
     </footer>
 </div>
+
 
 <!-- Left Navigation on SMALL screens (mmenu) -->
     <?php include("sideSmall.php"); ?>
@@ -972,6 +589,56 @@ include_once("./checkCookie.php");
         $("#keywordBrand" + brand).val('');
     }
 
+    function checkForm()
+    {
+        var error=0;
+        if($("#nomProblem").val() != "")
+        {
+            $('#nomProblem').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#nomProblem').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if($("#prenomProblem").val() != "")
+        {
+            $('#prenomProblem').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#prenomProblem').attr('style', " border:#FF0000 1px solid;");
+        }
+        if($("#sujetProblem").val() != "")
+        {
+            $('#sujetProblem').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#sujetProblem').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if($("#messageProblem").val() != "")
+        {
+            $('#messageProblem').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#messageProblem').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if(error==0) {
+            $("#formProblem").submit();
+        }
+        else{
+            alert("Merci de completer le formulaire entièrement.")
+        }
+
+    }
     function changeFrequence(frequence,val)
     {
 
