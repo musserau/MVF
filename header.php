@@ -101,6 +101,7 @@ var_dump($_COOKIE);
 								<ul class=\"dropdown-menu\" >
 									<li ><a href = \"./recommendation.php\" > Faire une recommendation </a ></li >
 									<li ><a href = \"./probleme.php\" > Signaler un problème </a ></li >
+									<li ><a href = \"./deconnexion.php\" > Déconnexion </a ></li >
 								</ul >
 							</li >
 						</ul >
@@ -110,7 +111,7 @@ var_dump($_COOKIE);
 					</div >
 				</div >
                 <div class=\" hidden-xs col-xs-6 col-sm-2\">
-                    <a href=\"#\" class=\"btn btn-mvf btn-myacount-header\">
+                    <a href=\"./parametre.php\" class=\"btn btn-mvf btn-myacount-header\">
                         <span>Mon compte</span>
                     </a>
                 </div>";

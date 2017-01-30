@@ -32,29 +32,50 @@ include_once("./checkCookie.php");
         <!-- // sidebar -->
 
         <div class="col-sm-9 col-lg-9 inner-page ">
-            <h3 class="text-center titleConf">SIGNALER UN PROBLÈME</h3>
+            <h3 class="text-center titleConf">PARAMÈTRES DU COMPTE</h3>
             <br>
-            <form method="post" id="formProblem" action="./problemeOk.php">
+            <form method="post" id="formParametre" action="./parametreOk.php">
                 <div class="blockProblem">
+                    <h3 class="titleConf">IDENTIFIANT</h3>
+                    <div class="form-group">
+                        <input class="form-control parametreInput " placeholder="Mail"  name="mailUser" id="mailUser" type="text" value="<?php echo $_SESSION["email"];?>">
+                    </div>
 
-                        <div class="form-group">
-                            <input class="form-control nomProblem " placeholder="Nom"  name="nom" id="nomProblem" type="text">
-                            <input class="form-control prenomProblem " placeholder="Prénom" name="prenomProblem" id="prenomProblem" type="text">
+                    <h3 class="titleConf">MOT DE PASSE</h3>
+                    <div class="form-group">
+                        <input class="form-control parametreInput " placeholder="Mot de passe actuel"  name="passeUser" id="passeUser" type="password">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control parametreInput " placeholder="Nouveau mot de passe"  name="newPasseUser" id="newPasseUser" type="password">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control  parametreInput" placeholder="Vérification nouveau mot de passe"  name="newPasseUser2" id="newPasseUser2" type="password">
+                    </div>
+
+                    <div class="align-center">
+                        <div class="checkbox">
+                            <?php
+
+                            $checked="";
+                            if($_SESSION["rememberMe"]==1)
+                            {
+                                $checked="checked";
+                            }
+
+                            ?>
+                            <input id="checkboxRememberMeParametre"  name="checkboxRememberMeParametre"  <?php echo $checked;?> value="check" type="checkbox" >
+                            <label for="checkboxRememberMeParametre"> Se souvenir de moi</label>
                         </div>
-                        <div class="form-group">
-                            <input class="form-control sujetProblem " placeholder="Problème à signaler"  name="sujetProblem" id="sujetProblem" type="text">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control messageProblem" placeholder="Votre message" id="messageProblem" name="messageProblem" rows="15"></textarea>
-                        </div>
-                        <div class="align-center">
-                            <span id="submitProblem" onclick="checkForm()" class="btn btn-mvf btn-myacount-header-connexion">
-                                Envoyer</span>
-                        </div>
+
+                    </div>
+
+                    <div class="align-center">
+                                <span id="submitProblem" onclick="checkForm()" class="btn btn-mvf btn-myacount-header-connexion">Envoyer</span>
+                    </div>
 
                 </div>
-            </form>
 
+            </form>
 
 
 
@@ -69,7 +90,6 @@ include_once("./checkCookie.php");
         <p>&copy; 2016 Company, Inc.</p>
     </footer>
 </div>
-
 
 <!-- Left Navigation on SMALL screens (mmenu) -->
     <?php include("sideSmall.php"); ?>
@@ -382,7 +402,89 @@ include_once("./checkCookie.php");
     var catFav="";
     var brandFav="";
 
+    function checkForm()
+    {
+        var error=0;
+        if($("#passeUser").val() != "")
+        {
+            $('#passeUser').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#passeUser').attr('style', " border:#FF0000 1px solid;");
+        }
 
+        if($("#newPasseUser").val() != "")
+        {
+            $('#newPasseUser').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#newPasseUser').attr('style', " border:#FF0000 1px solid;");
+        }
+        if($("#newPasseUser2").val() != "")
+        {
+            $('#newPasseUser2').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#newPasseUser2').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if($("#newPasseUser2").val() != $("#newPasseUser").val() )
+        {
+             error=1;
+            $('#newPasseUser').attr('style', " border:#FF0000 1px solid;");
+            $('#newPasseUser2').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if(error!=0) {
+            alert("Merci de completer le formulaire entièrement.")
+        }
+
+        $.ajax({
+            url: './script/checkPass.php',
+            data: {
+                password: $("#passeUser").val()
+            },
+            type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+            dataType: 'json', //return data in json format
+            success: function (data) {
+                $.map(data, function (item) {
+
+                    if (item.ok == "true") {
+                        $('#passeUser').attr('style', " border:green 1px solid;");
+                        if(error==0)
+                        {
+                            $("#formParametre").submit();
+                        }
+                    }
+                    else if(item.ok == "false")
+                    {
+
+                        $('#passeUser').attr('style', " border:#FF0000 1px solid;");
+                        alert("Le mot de passe est incorrect.")
+                    }
+                    else {
+                        alert("Erreur, merci de contacter l'administrateur");
+                    }
+                })
+            },
+            error: function (e) {
+
+                alert("Error contact the administrator" + e.responseText);
+            }
+        });
+
+        if(error==0) {
+          //
+        }
+
+
+    }
     function selectCatFav(idCat)
     {
 
@@ -589,56 +691,6 @@ include_once("./checkCookie.php");
         $("#keywordBrand" + brand).val('');
     }
 
-    function checkForm()
-    {
-        var error=0;
-        if($("#nomProblem").val() != "")
-        {
-            $('#nomProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#nomProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-
-        if($("#prenomProblem").val() != "")
-        {
-            $('#prenomProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#prenomProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-        if($("#sujetProblem").val() != "")
-        {
-            $('#sujetProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#sujetProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-
-        if($("#messageProblem").val() != "")
-        {
-            $('#messageProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#messageProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-
-        if(error==0) {
-            $("#formProblem").submit();
-        }
-        else{
-            alert("Merci de completer le formulaire entièrement.")
-        }
-
-    }
     function changeFrequence(frequence,val)
     {
 

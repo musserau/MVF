@@ -856,3 +856,7 @@ right:25px;
 .addNotification{
     margin-left: 45px;
 }
+
+.parametreInput{
+    border-radius: 50px;
+}

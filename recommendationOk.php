@@ -1227,9 +1227,13 @@ include_once("./checkCookie.php");
                                     location.reload();
 
                                 }
-                                else
+                                else if(item.ok =="false")
                                 {
-                                    alert("Erreur, merci de contacter l'administrateur");
+                                    alert("Mot de passe incorrect");
+                                    $('#coPass').attr('style', " border:red 1px solid;");
+                                }
+                                else {
+                                    alert("Error contact the administrator");
                                 }
 
                             })

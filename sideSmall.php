@@ -5,14 +5,24 @@
         <li>
             <a href="#">Mon compte</a>
             <ul>
-                <li><a href="#">First sub-item</a></li>
-                <li><a href="#">Second sub-item</a></li>
-                <li><a href="#">Third sub-item</a></li>
+                <li><a href="./parametre.php">Paramètres</a></li>
+                <li><a href="#">Favoris</a></li>
+                <li><a href="#">Tendances</a></li>
             </ul>
         </li>
-        <li><a href="index.php">Vente</a></li>
+        <li>
+            <a href="index.php">Vente</a>
+            <ul>
+                <li><a href="#">En cours</a></li>
+                <li><a href="#">Début aujourd'hui</a></li>
+                <li><a href="#">Début demain</a></li>
+            </ul>
+        </li>
+
+
         <li>
             <a href="horizontal-submenus.html">Catégories</a>
+            <ul>
             <?php
 
             $dbh = getConnection();
@@ -26,13 +36,13 @@
                 {
                     $id = $row["id"];
                     $categorie = $row["nom"];
-                    echo "<ul><a href='./categorie.php?cat=".$id."'>".$categorie."</a></ul>";
+                    echo "<li><a href='./categorie.php?cat=".$id."'>".$categorie."</a></li>";
                 }
             }
 
             $dbh = null;
             ?>
-
+            </ul>
 
 
 

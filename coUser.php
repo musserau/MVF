@@ -6,7 +6,7 @@ include("./script/Password.php");
 $mail=$_POST["mail"];
 $pass=$_POST["password"];
 //$pass=hash("sha512","mVp01@ç81".$pass);
-$pass = password_hash($pass, PASSWORD_BCRYPT);
+//$pass = password_hash($pass, PASSWORD_BCRYPT);
 $pass=$_POST["password"];
 $sid=session_id();
 //$sid=hash("sha512","mVp01@S5I0Dç81".$sid);

@@ -17,7 +17,7 @@ if(!isset($_SESSION)) {
 else
 {
 
-	session_destroy();
+	//session_destroy();
 }
 $dbh = getConnection();
 

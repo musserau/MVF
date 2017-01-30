@@ -10,12 +10,9 @@
         <div id="collapseAccount" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAccount">
             <div class="panel-body">
                 <ul class="sub-menu-left">
-                    <li class="selected"><a href="#">Mon compte</a></li>
+                    <li class="selected"><a href="./parametre.php">Paramètres</a></li>
                     <li><a href="#">Favoris</a></li>
                     <li><a href="#">Tendance</a></li>
-                    <li><a href="./deconnexion.php" id="deconnexion">Déconnexion</a></li>
-
-
                 </ul>
 
             </div>

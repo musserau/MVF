@@ -1,4 +1,41 @@
 <?php
+include("./script/Password.php");
+include("./connection.php");
+session_start();
+$password=$_POST["newPasseUser"];
+$password = password_hash($password, PASSWORD_BCRYPT);
+$rememberMe=0;
+if(isset($_POST["checkboxRememberMeParametre"]))
+{
+    $rememberMe=1;
+}
+
+$_SESSION["rememberMe"]=$rememberMe;
+if($rememberMe==0)
+{
+    //setcookie ("ssu", "", time() - 3600);
+    setcookie('ssu', NULL, -1);
+
+}
+else
+{
+    setcookie('ssu', $_SESSION["user"], time() + 365*24*3600, null, null, false, true);
+}
+
+$baseRequest = " update `tb_utilisateur` set cookie=:cookie,password= :password where  id_user=:user";
+$dbh = getConnection();
+
+$stmt = $dbh->prepare($baseRequest);
+$stmt->bindValue(':cookie', $rememberMe, PDO::PARAM_INT);
+$stmt->bindValue(':password', $password, PDO::PARAM_STR);
+$stmt->bindValue(':user', $_SESSION["user"], PDO::PARAM_STR);
+$stmt->execute();
+
+echo $rememberMe;
+echo $password;
+echo $_SESSION["user"];
+echo $baseRequest;
+
 include_once("./checkCookie.php");
 
 ?>
@@ -32,31 +69,12 @@ include_once("./checkCookie.php");
         <!-- // sidebar -->
 
         <div class="col-sm-9 col-lg-9 inner-page ">
-            <h3 class="text-center titleConf">SIGNALER UN PROBLÈME</h3>
+            <h3 class="text-center titleConf">PARAMÈTRES DU COMPTE</h3>
             <br>
-            <form method="post" id="formProblem" action="./problemeOk.php">
-                <div class="blockProblem">
+            <div class="blockProblem">
 
-                        <div class="form-group">
-                            <input class="form-control nomProblem " placeholder="Nom"  name="nom" id="nomProblem" type="text">
-                            <input class="form-control prenomProblem " placeholder="Prénom" name="prenomProblem" id="prenomProblem" type="text">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control sujetProblem " placeholder="Problème à signaler"  name="sujetProblem" id="sujetProblem" type="text">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control messageProblem" placeholder="Votre message" id="messageProblem" name="messageProblem" rows="15"></textarea>
-                        </div>
-                        <div class="align-center">
-                            <span id="submitProblem" onclick="checkForm()" class="btn btn-mvf btn-myacount-header-connexion">
-                                Envoyer</span>
-                        </div>
-
-                </div>
-            </form>
-
-
-
+                Modification effectuée.
+            </div>
 
         </div>
 
@@ -69,7 +87,6 @@ include_once("./checkCookie.php");
         <p>&copy; 2016 Company, Inc.</p>
     </footer>
 </div>
-
 
 <!-- Left Navigation on SMALL screens (mmenu) -->
     <?php include("sideSmall.php"); ?>
@@ -589,56 +606,6 @@ include_once("./checkCookie.php");
         $("#keywordBrand" + brand).val('');
     }
 
-    function checkForm()
-    {
-        var error=0;
-        if($("#nomProblem").val() != "")
-        {
-            $('#nomProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#nomProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-
-        if($("#prenomProblem").val() != "")
-        {
-            $('#prenomProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#prenomProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-        if($("#sujetProblem").val() != "")
-        {
-            $('#sujetProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#sujetProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-
-        if($("#messageProblem").val() != "")
-        {
-            $('#messageProblem').attr('style', " border:green 1px solid;");
-        }
-        else
-        {
-            error=1;
-            $('#messageProblem').attr('style', " border:#FF0000 1px solid;");
-        }
-
-        if(error==0) {
-            $("#formProblem").submit();
-        }
-        else{
-            alert("Merci de completer le formulaire entièrement.")
-        }
-
-    }
     function changeFrequence(frequence,val)
     {
 
