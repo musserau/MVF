@@ -37,32 +37,71 @@ include_once("./checkCookie.php");
             <form method="post" id="formParametre" action="./parametreOk.php">
                 <div class="blockProblem">
                     <h3 class="titleConf">IDENTIFIANT</h3>
-                    <div class="form-group">
-                        <input class="form-control parametreInput " placeholder="Mail"  name="mailUser" id="mailUser" type="text" value="<?php echo $_SESSION["email"];?>">
-                    </div>
 
-                    <h3 class="titleConf">MOT DE PASSE</h3>
-                    <div class="form-group">
-                        <input class="form-control parametreInput " placeholder="Mot de passe actuel"  name="passeUser" id="passeUser" type="password">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control parametreInput " placeholder="Nouveau mot de passe"  name="newPasseUser" id="newPasseUser" type="password">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control  parametreInput" placeholder="Vérification nouveau mot de passe"  name="newPasseUser2" id="newPasseUser2" type="password">
-                    </div>
+                    <?php
+                    $checked="";
+                    if(isset($_GET["newPass"]))
+                    {
+
+                        ?>
+                        <input type="hidden" id="id" value="<?php echo $_GET["id"];?>">
+                        <div class="form-group">
+                            <input class="form-control parametreInput " placeholder="Mail"  name="mailUser" id="mailUser" type="text" value="<?php echo $_GET["mail"];?>">
+                        </div>
+
+                        <h3 class="titleConf">MOT DE PASSE</h3>
+                        <div class="form-group">
+                            <input class="form-control parametreInput " placeholder="Nouveau mot de passe"  name="newPasseUser" id="newPasseUser" type="password">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control  parametreInput" placeholder="Vérification nouveau mot de passe"  name="newPasseUser2" id="newPasseUser2" type="password">
+                        </div>
+
+                        <?php
+
+
+
+
+
+
+                    }
+                    else
+                    {
+                        ?>
+
+                        <div class="form-group">
+                            <input class="form-control parametreInput " placeholder="Mail"  name="mailUser" id="mailUser" type="text" value="<?php echo $_SESSION["email"];?>">
+                        </div>
+
+                        <h3 class="titleConf">MOT DE PASSE</h3>
+                        <div class="form-group">
+                            <input class="form-control parametreInput " placeholder="Mot de passe actuel"  name="passeUser" id="passeUser" type="password">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control parametreInput " placeholder="Nouveau mot de passe"  name="newPasseUser" id="newPasseUser" type="password">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control  parametreInput" placeholder="Vérification nouveau mot de passe"  name="newPasseUser2" id="newPasseUser2" type="password">
+                        </div>
+
+                    <?php
+
+
+                        if($_SESSION["rememberMe"]==1)
+                        {
+                            $checked="checked";
+                        }
+
+                    }
+
+                    ?>
+
+
+
 
                     <div class="align-center">
                         <div class="checkbox">
-                            <?php
 
-                            $checked="";
-                            if($_SESSION["rememberMe"]==1)
-                            {
-                                $checked="checked";
-                            }
-
-                            ?>
                             <input id="checkboxRememberMeParametre"  name="checkboxRememberMeParametre"  <?php echo $checked;?> value="check" type="checkbox" >
                             <label for="checkboxRememberMeParametre"> Se souvenir de moi</label>
                         </div>
@@ -70,7 +109,26 @@ include_once("./checkCookie.php");
                     </div>
 
                     <div class="align-center">
-                                <span id="submitProblem" onclick="checkForm()" class="btn btn-mvf btn-myacount-header-connexion">Envoyer</span>
+
+                        <?php
+
+                        if(!isset($_GET["newPass"]))
+                        {
+                            ?>
+                            <span id="submitProblem" onclick="checkForm()"
+                                  class="btn btn-mvf btn-myacount-header-connexion">Envoyer</span>
+                            <?php
+
+                        }
+                        else
+                        {
+                            ?>
+                            <span id="submitProblem" onclick="checkFormNewPass()"
+                                  class="btn btn-mvf btn-myacount-header-connexion">Envoyer</span>
+                            <?php
+                        }
+                        ?>
+
                     </div>
 
                 </div>
@@ -109,289 +167,7 @@ include_once("./checkCookie.php");
 <!--</div>-->
 
 
-<!-- *
-	 *
-	 modal conf cat
--->
 
-<div class="modal fade" id="confCatModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">BIENVENUE SUR MVF !</h3>
-                <span class="modal-subtitle">Ne manquez plus les ventes et les promos sur les marques et produits qui vous intéressent.</span>
-            </div>
-            <div class="modal-body">
-                <h4>Choisissez les produits qui vous intéressent pour une expérience personnalisée</h4>
-                <br>
-                <table class="table" border="0" align="center" style="width:90%">
-                    <tbody>
-                    <tr style="background-color: #fbfbfb;">
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('1')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="1" src="img/Cat1.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat1"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('2')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="2" src="img/Cat2.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat2"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('3')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="3" src="img/Cat3.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat3"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('4')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="4" src="img/Cat4.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat4"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('5')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="5" src="img/Cat5.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat5"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="background-color: #fbfbfb;">
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('6')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="6" src="img/Cat6.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat6"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('7')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="7" src="img/Cat7.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat7"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('8')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="8"  src="img/Cat8.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat8"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('9')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="9" src="img/Cat9.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat9"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('10')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="10" src="img/Cat10.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat10"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="background-color: #fbfbfb;">
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('11')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="11" src="img/Cat11.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat11"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('12')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="12" src="img/Cat12.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat12"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('13')" class="img-responsive img-thumbnail img-modal-cat" id="modalImgCat" data-cat="13" src="img/Cat13.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat13"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('14')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="14" src="img/Cat14.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat14"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="modal-bloc-img-cat">
-                                <img title="Accademia d'Archi" onclick="selectCatFav('15')" class="img-responsive img-thumbnail img-modal-cat"  id="modalImgCat" data-cat="15" src="img/Cat15.svg" alt="Accademia d'Archi" />
-                                <img class="img-modal-selected" hidden id="imgCheckedCat15"  src="img/RondValider.png"/>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <img src="img/Validation.png" id="img-cat-disabled" class="img-cat-disabled">
-                <img src="img/Valider.png" hidden  id="img-cat-enabled" class="img-cat-enabled">
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-
-<!-- *
-	 *
-	 modal conf brand
--->
-
-
-
-
-<div class="modal fade" id="confBrandModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">BIENVENUE SUR MVF !</h3>
-                <span class="modal-subtitle">Ne manquez plus les ventes et les promos sur les marques et produits qui vous intéressent.</span>
-            </div>
-            <div class="modal-body modal-body-brand">
-                <h4>Choisissez désormais les marques qui vous intéressent</h4>
-                <br>
-                <table class="table" id="tableBrandConf" border="0" align="center" style="width:90%">
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default modal-conf-brand-back" id="btnBrandConfBack">< retour </button>
-                <img src="img/Validation.png" id="img-brand-disabled" class="img-brand-disabled">
-                <img src="img/Valider.png"  hidden  id="img-brand-enabled" class="img-brand-enabled">
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<!-- *
-	 *
-	 modal subscription
--->
-
-<div class="modal fade" id="confSubscriptionModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Inscrivez-vous pour suivres les marques sélectionnées</h3>
-                <span class="modal-subtitle"></span>
-            </div>
-            <div class="modal-body modal-body-center">
-                <form id="subscriptionForm" >
-                    <br>
-
-                    <input class="form-control login " placeholder="Email" class="form-control" name="email" id="confMail" type="text">
-                    <br>
-                    <input class="form-control password " placeholder="Mot de passe"  id="confPass" type="password">
-                    <br>
-                    <br>
-                    <div class="checkbox">
-                        <input id="checkboxRememberMe"  type="checkbox" >
-                        <label for="checkboxRememberMe"> Se souvenir de moi</label>
-                    </div>
-                    <br>
-                    <input type="button" class="btn btn-default" id="submitConf" value="Je m'inscris">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default " id="goToConnection">Vous avez déjà un compte? Se connecter</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- *
-	 *
-	 modal notif
--->
-
-<div class="modal fade" id="confNotifModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Vos marques ont été mises en favoris</h3>
-                <span class="modal-subtitle"></span>
-            </div>
-            <div class="modal-body modal-body-center">
-
-                <br>
-                <div class="checkbox">
-                    <input id="checkboxMailNotif"  type="checkbox" >
-                    <label for="checkboxMailNotif"> Je souhaite recevoir mes alertes par mail</label>
-                </div>
-                <br>
-
-            </div>
-            <div class="modal-footer labelMailNotif">
-                MVF est aussi sur mobile, téléchargez l'application
-                <br>
-                <br>
-                <img src="img/download_google_play.png" hidden="" id="img-cat-enabled" class="img-cat-enabled" style="display: inline; margin-right: 10px;">
-                <img src="img/download_apple_store.png" hidden="" id="img-cat-enabled" class="img-cat-enabled" style="display: inline;">
-                <br>
-                <br>
-                <img src="img/Valider.png" hidden=""  id="submitNotif" class="img-cat-enabled" style="display: inline;">
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<!-- *
-	 *
-	 modal Connexion
--->
-
-<div class="modal fade" id="connectionModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Se connecter à MVF</h3>
-                <span class="modal-subtitle"></span>
-            </div>
-            <div class="modal-body modal-body-center">
-
-                <input class="form-control login " placeholder="Email" class="form-control" name="email" id="coMail" type="text">
-                <br>
-                <input class="form-control password " placeholder="Mot de passe"  id="coPass" type="password">
-
-                <br>
-                <div class="checkbox">
-                    <input id="checkboxRememberMeCo"  type="checkbox" >
-                    <label for="checkboxRememberMeCo"> Se souvenir de moi</label>
-                </div>
-
-                <input type="button" class="btn btn-mvf submit-btn" style="font-size: 16px;" id="submitConnection" value="Connexion">
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default" id="goToSubscribe">Vous n'avez pas de compte? S'inscrire</button>
-
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript" src="./dist/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="./dist/bootstrap/js/bootstrap.min.js"></script>
@@ -485,6 +261,88 @@ include_once("./checkCookie.php");
 
 
     }
+
+    function checkFormNewPass(){
+        var error=0;
+
+        if($("#newPasseUser").val() != "")
+        {
+            $('#newPasseUser').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#newPasseUser').attr('style', " border:#FF0000 1px solid;");
+        }
+        if($("#newPasseUser2").val() != "")
+        {
+            $('#newPasseUser2').attr('style', " border:green 1px solid;");
+        }
+        else
+        {
+            error=1;
+            $('#newPasseUser2').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if($("#newPasseUser2").val() != $("#newPasseUser").val() )
+        {
+            error=1;
+            $('#newPasseUser').attr('style', " border:#FF0000 1px solid;");
+            $('#newPasseUser2').attr('style', " border:#FF0000 1px solid;");
+        }
+
+        if(error!=0) {
+            alert("Merci de completer le formulaire entièrement.")
+        }
+
+        var rememberMe=0;
+        if( $('#checkboxRememberMeParametre').is(':checked') )
+        {
+            rememberMe = 1;
+        }
+        $.ajax({
+            url: './script/updateNewPass.php',
+            data: {
+                password: $("#newPasseUser2").val(),
+                mail:$("#mailUser").val(),
+                id: $("#id").val(),
+                rememberMe: rememberMe
+            },
+            type: 'POST', // a jQuery ajax POST transmits in querystring format (key=value&key1=value1) in utf-8
+            dataType: 'json', //return data in json format
+            success: function (data) {
+                $.map(data, function (item) {
+
+                    if (item.ok == "true") {
+
+                            alert('Mot de passe mise à jour');
+                            document.location.href="./index.php";
+
+                    }
+                    else if(item.ok == "false")
+                    {
+
+                        alert("Ce lien a déjà été utilisé.")
+                    }
+                    else {
+                        alert("Erreur, merci de contacter l'administrateur");
+                    }
+                })
+            },
+            error: function (e) {
+
+                alert("Error contact the administrator" + e.responseText);
+            }
+        });
+
+        if(error==0) {
+            //
+        }
+
+
+    }
+
+
     function selectCatFav(idCat)
     {
 

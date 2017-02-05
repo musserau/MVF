@@ -126,7 +126,7 @@ try {
     }
     //=====Déclaration des messages au format texte et au format HTML.
     $message_txt = "Bonjour, Ceci est un mail de confirmation d'inscription. Merci et bonne navigation ;)";
-    $message_html = "<html><head></head><body><b>Bonjour</b>, Ceci est un mail de confirmation d'inscription. Merci et bonne navigation ;)</body></html>";
+    $message_html = "<html><head></head><body><b>Bonjour</b>, <br> Ceci est un mail de confirmation d'inscription.<br> Merci et bonne navigation ;)</body></html>";
     //==========
 
     //=====Création de la boundary
@@ -162,7 +162,7 @@ try {
     //==========
 
     //=====Envoi de l'e-mail.
-   // mail($mail,$sujet,$message,$header);
+    mail($mail,$sujet,$message,$header);
     //==========
 
 
