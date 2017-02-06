@@ -1,8 +1,31 @@
 
 <?php
 include_once("./checkCookie.php");
-var_dump($_SESSION);
-var_dump($_COOKIE);
+//var_dump($_SESSION);
+//var_dump($_COOKIE);
+
+$dbh = getConnection();
+
+
+$baseRequest = "SELECT COUNT(tbv.id_vente) as nf 
+                                    FROM tb_notification_vente as tbv 
+                                    LEFT JOIN tb_vente as v on tbv.id_vente=v.id_vente 
+                                    WHERE tbv.id_utilisateur= (select id_utilisateur from tb_utilisateur where id_user= :user)
+                                    AND tbv.id_vente IS NOT NULL AND tbv.notified=0";
+
+$stmt = $dbh->prepare($baseRequest);
+$stmt->bindValue(':user', $_SESSION["user"], PDO::PARAM_STR);
+
+
+if ($stmt->execute())
+{
+    $count = $stmt->rowCount();
+
+    $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+    $nbNotif=$result["nf"];
+}
+
+
 ?>
     <div class="navbar" role="navigation">
 
@@ -23,8 +46,11 @@ var_dump($_COOKIE);
                         }
                         <li>
                             <!--<img src="css/img/toggle-menu.png" height="50" width="50"/>-->
+
                             <a href="#">
                                 <img src="img/menu-alertes-small.png">
+                                <div class="notifNumberSmall">&nbsp;<?php echo $nbNotif; ?>
+                                    &nbsp;</div>
                             </a>
                         </li>
                         <li>
@@ -68,17 +94,81 @@ var_dump($_COOKIE);
 						<ul class=\"nav navbar-nav navbar-right hidden-xs\" >
 							<li >
 								<button class=\"btn btn-default btn-header dropdown-toggle\" type = \"button\" data-toggle = \"dropdown\" >
+								    <div class=\"notifNumber\">&nbsp;".$nbNotif."
+								     &nbsp;</div>
 									<img src = \"img/menu-alertes.png\" >
 								</button >
                                 <ul class=\"dropdown-menu\" style = \"width: 500px\" >
-                                    <li class=\"notification unread\" >
+                                    <li class=\"notificationHeader unread\" >
                                         <a href = \"#\" >
                                            <img  class=\"img-rounded img-notification\" src = \"./img/test.jpg\" >
 
                                         </a >
                                     </li >
                                     <li class=\"divider\" ></li >
-                                    <li class=\"notification read\" >
+                                    ";
+
+
+
+
+
+        $baseRequest = "SELECT (CASE 
+                                  WHEN v.discount!='' THEN v.discount
+                                  WHEN v.discount='' AND v.prixNouveau!='' THEN CONCAT(v.prixNouveau, '€') 
+                                  ELSE ''
+                                 END) AS price, 
+                                  (CASE 
+                                  WHEN v.discount!='' THEN ''
+                                  WHEN v.discount='' AND v.prixNouveau!='' THEN CONCAT(v.prixBarre, '€') 
+                                  ELSE ''
+                                  END) AS pricebar, 
+                                  (CASE 
+                                  WHEN v.discount!='' THEN ''
+                                  WHEN v.discount='' AND v.prixNouveau!='' THEN CONCAT('-',ROUND((v.prixBarre-v.prixNouveau)*100/v.prixBarre ), '%') 
+                                  ELSE ''
+                                  END) AS discount, tbv.notified as hist ,m.nom as marque,v.id_vente as idvente, v.isvp as isvp, m.logo as logomarque, IF(v.description!='none' , v.description, CONCAT('Catégorie ', c.libelle)) as categorie
+                        FROM tb_notification_vente as tbv
+                        left join tb_vente as v on tbv.id_vente=v.id_vente
+                        left join tb_categorie as c on v.categorie=c.id_categorie  
+                        left join tb_marque as m on v.marque=m.id_marque  
+                        WHERE tbv.id_utilisateur=(select id_utilisateur from tb_utilisateur where id_user= :user)
+                        AND v.id_vente IS NOT NULL 
+                        AND tbv.notified=0 
+                        ORDER BY cast(debut as datetime) DESC";
+
+        $stmt = $dbh->prepare($baseRequest);
+        $stmt->bindValue(':user', $_SESSION["user"], PDO::PARAM_STR);
+
+
+        if ($stmt->execute())
+        {
+            $count = $stmt->rowCount();
+            $result = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+                foreach ($result as $row)
+                {
+
+                    ?>
+                        <li class="notificationHeader unread" >
+                                            <a class="headerNotifahref" href = "#" >
+
+
+                                                <img  class="img-rounded img-notification-header" src = "../private/Marchand/Logo/<?php echo $row["logomarque"];?>" >
+
+                                                <div class="NotifHeader">
+                                                    <div class="NotifHeaderBrand"><?php echo $row["marque"];?></div>
+                                                    <div class="logoNotifHeaderDesc"><?php echo $row["categorie"];?></div>
+                                                    <div class="logoNotifHeaderPrice"><?php echo $row["price"];?></div>
+                                                    <div class="logoNotifHeaderPriceBan"><?php echo $row["pricebar"];?></div>
+                                                    <div class="logoNotifHeaderPriceDiscount"><?php echo $row["discount"];?></div>
+                                                </div>
+                                            </a >
+                                        </li >
+
+                    <?php
+                }
+        }
+
+                                    echo"<li class=\"notification read\" >
                                         <a href = \"#\" > dd</a >
                                     </li >
                                 </ul >
@@ -555,7 +645,7 @@ var_dump($_COOKIE);
                                     .attr("class","modal-bloc-img-cat"));
 
                                 $("#tableBrandConf tbody tr:last td:last div:last").append($('<img>')
-                                    .attr('src', "../private/Marchand/logo/"+item.logo)
+                                    .attr('src', "../private/Marchand/Logo/"+item.logo)
                                     .attr('data-brand',item.id)
                                     .attr('class',"img-responsive img-thumbnail img-modal-brand")
                                     .attr('id',"modalImgBrand")

@@ -403,9 +403,28 @@ border-color: transparent !important;
   }
 }
 
-.notification{
+.notificationHeader{
 
-  height: 70px ;
+    display: inline;
+
+
+
+}
+
+.logoNotifHeader{
+    display: inline-block;
+}
+
+.NotifHeader{
+    display: inline-block;
+    margin-left: 10px;
+    max-height: inherit;
+    vertical-align: top;
+}
+
+.NotifHeaderBrand{
+
+    display: inline;
 }
 
 .unread{
@@ -423,9 +442,24 @@ border-color: transparent !important;
   height:60px;
   width: 60px;
 }
+
+.img-notification-header{
+
+
+    height: calc(100vh - 85vh);
+    width: calc(100vh - 75vh);
+    max-height: calc(100vh - 85vh);
+    max-width: calc(100vh - 75vh);
+    vertical-align: inherit;
+
+}
 .modal-header
 {
  text-align: center !important;
+}
+.headerNotifahref{
+    padding:  0 0 0 0 !important;
+    max-height: calc(100vh - 75vh) !important;
 }
 
 .modal-footer
@@ -860,3 +894,37 @@ right:25px;
 .parametreInput{
     border-radius: 50px;
 }
+.notifNumber{
+
+    color: white;
+    display:block;
+    position:absolute;
+    background:#ff837c;
+    font-size:12px;
+    font-weight:normal;
+    padding:1px 3px;
+    margin:18px 0 0 2px;
+    border-radius:10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    z-index:1;
+
+}
+
+.notifNumberSmall{
+
+    color: white;
+    display:block;
+    position:absolute;
+    background:#ff837c;
+    font-size:12px;
+    font-weight:normal;
+    padding:1px 3px;
+    margin:-30px 0 0 -12px;
+    border-radius:10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    z-index:1;
+    max-height: 22px;
+}
+
